@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#8bc63f"><title>Green Wallet Demo</title>
+<style>
+:root{--green:#8bc63f;--dark:#4f9426;--blue:#078dcc;--bg:#f3f4f3;--text:#202522;--muted:#858c87}
+*{box-sizing:border-box}body{margin:0;background:#e8ece9;font-family:Arial,Helvetica,sans-serif;color:var(--text)}
+.app{width:100%;max-width:430px;min-height:100vh;margin:auto;background:var(--bg);padding-bottom:82px;position:relative;overflow:hidden}
+.demo{background:#fff0c8;color:#705000;text-align:center;padding:7px 5px;font-size:10px;font-weight:800;letter-spacing:.35px}
+.brand{height:56px;background:white;display:flex;align-items:center;justify-content:space-between;padding:0 18px}
+.brand-left{font-size:16px;font-weight:900;color:#167447}.brand-right{font-size:12px;color:#397e9c;font-weight:800}
+.home-hero{background:var(--green);color:white;padding:15px 19px 24px;border-radius:0 0 22px 22px;background-image:repeating-radial-gradient(ellipse at 12% 30%,transparent 0 13px,#ffffff23 14px 15px,transparent 16px 23px)}
+.greeting{display:flex;align-items:center;justify-content:space-between;font-size:17px}.greeting .tools{font-size:21px}
+.balance-label{text-align:center;font-size:16px;font-weight:700;margin-top:29px}.balance{text-align:center;font-size:38px;font-weight:800;margin:16px 0 26px}
+.balance-extra{display:flex;justify-content:space-between}.balance-extra div{width:50%}.balance-extra small{font-size:13px;font-weight:700;display:block;margin-bottom:9px}.balance-extra b{font-size:23px}
+.promo{margin:0 0 20px;background:#064d34;color:#fff;border-radius:17px;padding:15px 8px;text-align:center;font-weight:900;font-size:15px}.promo small{display:block;font-size:10px;font-weight:400;margin-top:5px}
+.content{padding:17px 16px}.title{font-size:17px;font-weight:800;margin:8px 2px 14px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.tile{min-height:112px;border:0;border-radius:14px;background:white;padding:12px 4px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:#242a26;font-size:12px;line-height:1.3;text-align:center;cursor:pointer}.tile .ico{font-size:26px;color:var(--green)}
+.scan{display:block;width:86%;margin:23px auto 15px;border:0;border-radius:14px;background:var(--blue);color:white;padding:16px;font-size:19px;font-weight:800}
+.recent{background:#fff;border-radius:14px;padding:13px 15px}.tx{display:flex;justify-content:space-between;gap:8px;padding:12px 0;border-bottom:1px solid #edf0ed;font-size:12px}.tx:last-child{border:0}.tx small{display:block;color:var(--muted);margin-top:4px}.demo-tag{font-size:9px;color:#8a6500;font-weight:800}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(430px,100%);height:76px;background:var(--green);display:flex;align-items:center;justify-content:space-around;z-index:5}.nav button{width:20%;height:100%;border:0;background:none;color:#f7ffe9;font-size:11px;cursor:pointer}.nav button.active{background:#ffffff18}.nav b{display:block;font-size:22px;margin-bottom:4px}
+.screen{display:none;min-height:calc(100vh - 145px)}.screen.active{display:block}.page-head{background:var(--green);color:white;text-align:center;padding:18px;font-size:20px;font-weight:700;position:relative}.back{position:absolute;left:17px;top:12px;font-size:28px;cursor:pointer}
+.categories{padding:13px 12px}.category{background:white;border-radius:15px;margin:10px 0;overflow:hidden}.cat-head{padding:19px 20px;font-size:16px;font-weight:700;display:flex;justify-content:space-between;cursor:pointer}.cat-body{display:none;padding:10px 8px 14px;grid-template-columns:repeat(4,1fr);gap:5px}.cat-body.open{display:grid}.service{text-align:center;font-size:10px;line-height:1.35;padding:9px 2px;cursor:pointer}.service i{display:block;font-style:normal;color:var(--green);font-size:25px;margin-bottom:8px}
+.card{background:white;border-radius:16px;margin:17px 0;padding:19px}.card-title{font-size:19px;font-weight:800;margin:0 0 7px}.muted{font-size:12px;color:var(--muted);line-height:1.5}.field{display:block;font-size:13px;font-weight:700;margin:17px 0 7px}input,select{width:100%;padding:14px;border:1.5px solid #dce5dd;border-radius:11px;font-size:15px;background:#fff;outline-color:var(--green)}.primary{width:100%;border:0;border-radius:11px;background:var(--green);color:white;padding:15px;font-size:16px;font-weight:800;margin-top:17px;cursor:pointer}.blue{background:var(--blue)}.note{margin-top:15px;padding:12px;background:#fff3d3;color:#6b5200;border-radius:10px;font-size:11px;line-height:1.5}
+.result{text-align:center;padding:35px 18px}.check{font-size:55px;color:var(--green)}.result h2{color:var(--green);font-size:22px}.result-amount{font-size:34px;font-weight:800;margin:48px 0 35px}.details{border-top:1px solid #ddd;padding-top:15px;text-align:left}.detail{display:flex;justify-content:space-between;gap:12px;padding:11px 0;font-size:13px}.detail span:first-child{color:#929a94}.finish{width:65%;margin:48px auto 0;display:block;border:0;border-radius:13px;background:var(--green);color:white;padding:15px;font-size:16px}
+.empty{padding:17px 3px;color:var(--muted);font-size:12px}
+@media(min-width:500px){body{padding:12px 0}.app{border-radius:20px;box-shadow:0 12px 38px #203d2818}.nav{bottom:12px;border-radius:0 0 20px 20px}}
+</style></head>
+<body><div class="app">
+<div class="demo">UNOFFICIAL DEMO APP • NO REAL PAYMENTS OR TRANSFERS</div>
+<div class="brand"><div class="brand-left">● ETHIO WALLET</div><div class="brand-right">GREEN WALLET • DEMO</div></div>
+
+<section id="home" class="screen active">
+ <div class="home-hero">
+  <div class="greeting"><span>👤　Selam, User</span><span class="tools">⌕　♧　EN⌄</span></div>
+  <div class="balance-label">Balance (ETB)　◉</div><div class="balance" id="balance">179.69</div>
+  <div class="balance-extra"><div><small>Endekise (ETB)　◉</small><b>2,271.17</b></div><div><small>Reward (ETB)　◉</small><b>0.00</b></div></div>
+ </div>
+ <div class="content">
+  <div class="promo">ONE APP FOR YOUR DAILY NEEDS!<small>Explore services in this sample wallet</small></div>
+  <div class="grid">
+   <button class="tile" onclick="openPage('send')"><span class="ico">▣</span>Send Money</button>
+   <button class="tile" onclick="openPage('cash')"><span class="ico">▤</span>Cash In/Out</button>
+   <button class="tile" onclick="openPage('airtime')"><span class="ico">▥</span>Airtime/Buy Package</button>
+   <button class="tile" onclick="openPage('services')"><span class="ico">🛍</span>Shopping</button>
+   <button class="tile" onclick="openPage('services')"><span class="ico">🏦</span>Financial Service</button>
+   <button class="tile" onclick="openPage('services')"><span class="ico">◉</span>Bank Service</button>
+   <button class="tile" onclick="openPage('services')"><span class="ico">▥</span>Transfer to Bank</button>
+   <button class="tile" onclick="openPage('services')"><span class="ico">＋</span>More</button>
+  </div>
+  <div class="title">Transaction Details　›</div><div class="recent" id="recent"><div class="empty">No demo transactions yet.</div></div>
+  <button class="scan" onclick="openPage('scan')">▣　Scan QR (Demo)</button>
+ </div>
+</section>
+
+<section id="payment" class="screen"><div class="page-head">Payment</div><div class="categories" id="categories"></div></section>
+<section id="apps" class="screen"><div class="page-head">Apps</div><div class="content"><div class="grid">
+<button class="tile" onclick="openPage('services')">🛍<br>E-commerce</button><button class="tile" onclick="openPage('services')">🎫<br>Event & Ticketing</button><button class="tile" onclick="openPage('services')">📚<br>Education</button><button class="tile" onclick="openPage('services')">＋<br>More</button></div></div></section>
+<section id="engage" class="screen"><div class="page-head">Engage</div><div class="content"><div class="card"><div class="card-title">Notifications</div><p class="muted">Sample announcements will appear here.</p></div></div></section>
+<section id="account" class="screen"><div class="page-head">Account</div><div class="content"><div class="card"><div class="detail">Profile <span>›</span></div><div class="detail">Language <span>English</span></div><div class="detail">Settings <span>›</span></div><div class="detail">About this demo <span>›</span></div></div></div></section>
+
+<section id="send" class="screen"><div class="page-head"><span class="back" onclick="goHome()">‹</span>Send Money to Individual</div><div class="content"><div class="promo">SAMPLE WALLET SERVICE<small>Send money screen preview</small></div><div class="card"><div class="card-title">Please Enter Mobile Number</div><label class="field">Recipient name</label><input id="recipient" placeholder="Enter recipient name"><label class="field">Mobile number</label><input id="phone" placeholder="+251 9xxxxxxxx" inputmode="tel"><label class="field">Amount (ETB)</label><input id="sendAmount" type="number" min="1" placeholder="Enter amount"><button class="primary" onclick="sendDemo()">Continue (Demo)</button><div class="note">Demo only. This does not connect to Telebirr, a bank, or any payment network.</div></div></div></section>
+
+<section id="cash" class="screen"><div class="page-head"><span class="back" onclick="goHome()">‹</span>Cash In/Out</div><div class="content"><div class="card"><div class="card-title">Cash service preview</div><button class="primary" onclick="alert('Cash-in is disabled in this demo.')">Cash In</button><button class="primary" onclick="alert('Cash-out is disabled in this demo.')">Cash Out</button><div class="note">No cash deposits or withdrawals can be made.</div></div></div></section>
+
+<section id="airtime" class="screen"><div class="page-head"><span class="back" onclick="goHome()">‹</span>Airtime/Package</div><div class="content"><div class="card"><div class="card-title">Buy Package (Demo)</div><label class="field">Phone Number</label><input id="airPhone" placeholder="+251 9xxxxxxxx"><label class="field">Product Name</label><select id="package"><option>Daily Internet Package 120 MB</option><option>Sample Airtime</option><option>Sample Voice Package</option></select><label class="field">Amount (ETB)</label><input id="airAmount" type="number" min="1" placeholder="5.00"><button class="primary" onclick="airtimeDemo()">Simulate Purchase</button><div class="note">This will not recharge a real phone or buy a real package.</div></div></div></section>
+
+<section id="services" class="screen"><div class="page-head"><span class="back" onclick="goHome()">‹</span>More Services</div><div class="categories" id="moreCategories"></div></section>
+<section id="scan" class="screen"><div class="page-head"><span class="back" onclick="goHome()">‹</span>Scan QR</div><div class="content"><div class="card result"><div class="check">▣</div><h2>QR Scanner Preview</h2><p class="muted">Camera scanning and payment are disabled in this demo.</p></div></div></section>
+<section id="success" class="screen"><div class="page-head">Demo Result</div><div class="content"><div class="card result"><div class="check">✓</div><h2>Demo Action Recorded</h2><div class="result-amount" id="resultAmount">-5.00 ETB</div><div class="details" id="resultDetails"></div><div class="note">DEMO ONLY — NOT AN OFFICIAL RECEIPT OR REAL TRANSACTION.</div><button class="finish" onclick="goHome()">Finished</button></div></div></section>
+
+<nav class="nav">
+<button class="active" data-id="home" onclick="openPage('home')"><b>⌂</b>Home</button>
+<button data-id="payment" onclick="openPage('payment')"><b>▤</b>Payment</button>
+<button data-id="apps" onclick="openPage('apps')"><b>▦</b>Apps</button>
+<button data-id="engage" onclick="openPage('engage')"><b>☏</b>Engage</button>
+<button data-id="account" onclick="openPage('account')"><b>♙</b>Account</button>
+</nav>
+</div>
+<script>
+let balance=179.69,transactions=[];
+const groups={
+'Utility':['Pay Ethio telecom Bill','Electric Utility','Addis Ababa Water Utility','Water Utility by Derash','Water Utility by WeBirr','Water Utility by UniCash'],
+'Tax and Government Service':['Tax payment','Government services'],
+'MESOB One-stop Service Center':['City services','Document services'],
+'Transport Service':['Traffic Penalty','Parking Payment'],
+'Entertainment Service':['Entertainment payments'],
+'E-commerce':['Online shopping','Merchant payment'],
+'Event and Ticketing':['Event tickets'],
+'Education fee':['Education fee payment'],
+'Fundraising':['Fundraising'],
+'Insurance':['Insurance payment'],
+'Non Government Service':['NGO services'],
+'Agriculture & Livestock':['Agriculture services'],
+'Medical and Health Services':['Medical services','Health fee']
+};
+function openPage(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.id===id));window.scrollTo(0,0)}
+function goHome(){openPage('home')}
+function drawGroups(target){document.getElementById(target).innerHTML=Object.entries(groups).map(([name,items],i)=>`<div class="category"><div class="cat-head" onclick="this.nextElementSibling.classList.toggle('open')">${name}<span>⌄</span></div><div class="cat-body ${i===0?'open':''}">${items.map(item=>`<div class="service" onclick="alert('${item} is a visual demo service only.')"><i>◉</i>${item}</div>`).join('')}</div></div>`).join('')}
+function updateHome(){document.getElementById('balance').textContent=balance.toFixed(2);document.getElementById('recent').innerHTML=transactions.length?transactions.slice(0,4).map(t=>`<div class="tx"><div>${t.name}<small>${t.date} • <span class="demo-tag">DEMO</span></small></div><b>${t.amount.toFixed(2)} ETB</b></div>`).join(''):'<div class="empty">No demo transactions yet.</div>'}
+function record(name,amount,details){transactions.unshift({name,amount,date:new Date().toLocaleString()});document.getElementById('resultAmount').textContent='-'+amount.toFixed(2)+' ETB';document.getElementById('resultDetails').innerHTML=details.map(([k,v])=>`<div class="detail"><span>${k}</span><b>${v}</b></div>`).join('')+`<div class="detail"><span>Transaction status</span><b>DEMO ONLY</b></div>`;updateHome();openPage('success')}
+function sendDemo(){let n=document.getElementById('recipient').value.trim(),p=document.getElementById('phone').value.trim(),a=Number(document.getElementById('sendAmount').value);if(!n||!p||!Number.isFinite(a)||a<=0)return alert('Enter recipient name, phone number and valid amount.');if(a>balance)return alert('Insufficient demo balance.');balance-=a;record('Demo send to '+n,a,[['Recipient',n],['Mobile Number',p],['Transaction Type','Demo transfer']])}
+function airtimeDemo(){let p=document.getElementById('airPhone').value.trim(),a=Number(document.getElementById('airAmount').value),pkg=document.getElementById('package').value;if(!p||!Number.isFinite(a)||a<=0)return alert('Enter a phone number and valid amount.');if(a>balance)return alert('Insufficient demo balance.');balance-=a;record('Demo package purchase',a,[['Phone Number',p],['Product Name',pkg],['Transaction Type','Demo purchase']])}
+drawGroups('categories');drawGroups('moreCategories');updateHome();
+</script></body></html>
